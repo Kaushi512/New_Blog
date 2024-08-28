@@ -252,6 +252,10 @@ def show_post(post_id):
 def add_new_post():
     form = CreatePostForm()
     if form.validate_on_submit():
+        day = datetime.datetime.now().day
+        month = datetime.datetime.now().month
+        year = datetime.datetime.now().year
+        date = datetime.datetime(year,month,day)
         new_post = BlogPost(
             title=form.title.data,
             subtitle=form.subtitle.data,
