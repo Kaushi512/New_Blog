@@ -15,6 +15,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, URL
 # Optional: add contact me email functionality (Day 60)
 import smtplib
+import os
 
 MAIL_ADDRESS = os.environ.get("EMAIL_KEY")
 MAIL_APP_PW = os.environ.get("PASSWORD_KEY")
