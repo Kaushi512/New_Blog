@@ -199,6 +199,7 @@ def receive_data():
 
 @app.route('/')
 def get_all_posts():
+    posts=[]
     result = db.session.execute(db.select(BlogPost))
     posts = result.scalars().all()
     return render_template("index.html", all_posts=posts, current_user=current_user)
@@ -299,4 +300,4 @@ def delete_post(post_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,port=5001)
