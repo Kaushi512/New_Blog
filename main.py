@@ -252,17 +252,13 @@ def show_post(post_id):
 def add_new_post():
     form = CreatePostForm()
     if form.validate_on_submit():
-        day = datetime.datetime.now().day
-        month = datetime.datetime.now().month
-        year = datetime.datetime.now().year
-        date = datetime.datetime(year,month,day)
         new_post = BlogPost(
             title=form.title.data,
             subtitle=form.subtitle.data,
             body=form.body.data,
             img_url=form.img_url.data,
             author=current_user,
-            date=day.strftime("%B %d, %Y")
+            date=date.today().strftime("%B %d, %Y")
         )
         db.session.add(new_post)
         db.session.commit()
