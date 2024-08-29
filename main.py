@@ -16,13 +16,13 @@ from wtforms.validators import DataRequired, URL
 # Optional: add contact me email functionality (Day 60)
 import smtplib
 import os
-import requests
+#import requests
 
 MAIL_ADDRESS = os.environ.get("EMAIL_KEY")
 MAIL_APP_PW = os.environ.get("PASSWORD_KEY")
 
 # USE YOUR OWN npoint LINK! ADD AN IMAGE URL FOR YOUR POST. 👇
-posts = requests.get("https://api.npoint.io/c790b4d5cab58020d391").json()
+#posts = requests.get("https://api.npoint.io/c790b4d5cab58020d391").json()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
