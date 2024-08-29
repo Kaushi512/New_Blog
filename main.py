@@ -231,12 +231,9 @@ def send_email(name, email, phone, message):
         connection.login(MAIL_ADDRESS, MAIL_APP_PW)
         connection.sendmail(MAIL_ADDRESS, MAIL_APP_PW, email_message)
 
-@app.route("/post/<int:index>")
-def show_post(index):
-    requested_post = None
-    for blog_post in posts:
-        if blog_post["id"] == index:
-            requested_post = blog_post
+@app.route("/post/<int:index>", methods=["GET", "POST"])
+def show_post(post_id):
+    requested_post = db.get_or_404(BlogPost, post_id)
      # Add the CommentForm to the route
     comment_form = CommentForm()
     # Only allow logged-in users to comment on posts
