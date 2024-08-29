@@ -252,7 +252,7 @@ def show_post(index):
         )
         db.session.add(new_comment)
         db.session.commit()
-    return render_template("post.html", post=requested_post current_user=current_user, form=comment_form)
+    return render_template("post.html", post=requested_post, current_user=current_user, form=comment_form)
 
 
 #@app.route("/post/<int:post_id>", methods=["GET", "POST"])
