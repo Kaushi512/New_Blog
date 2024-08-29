@@ -235,14 +235,13 @@ def send_email(name, email, phone, message):
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
 def show_post(post_id):
     requested_post = db.get_or_404(BlogPost, post_id)
-    # Add the CommentForm to the route
+        # Add the CommentForm to the route
     comment_form = CommentForm()
-     Only allow logged-in users to comment on posts
-     if comment_form.validate_on_submit():
+         #Only allow logged-in users to comment on posts
+    if comment_form.validate_on_submit():
         if not current_user.is_authenticated:
             flash("You need to login or register to comment.")
             return redirect(url_for("login"))
-
         new_comment = Comment(
             text=comment_form.comment_text.data,
             comment_author=current_user,
