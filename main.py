@@ -223,6 +223,7 @@ def contact():
     return render_template("contact.html", msg_sent=False)
 
 
+
 def send_email(name, email, phone, message):
     email_message = f"Subject:New Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage:{message}"
     with smtplib.SMTP("smtp.gmail.com") as connection:
@@ -230,11 +231,13 @@ def send_email(name, email, phone, message):
         connection.login(MAIL_ADDRESS, MAIL_APP_PW)
         connection.sendmail(MAIL_ADDRESS, MAIL_APP_PW, email_message)
 
-
-@app.route("/post/<int:post_id>", methods=["GET", "POST"])
-def show_post(post_id):
-    requested_post = db.get_or_404(BlogPost, post_id)
-    # Add the CommentForm to the route
+@app.route("/post/<int:index>")
+def show_post(index):
+    requested_post = None
+    for blog_post in posts:
+        if blog_post["id"] == index:
+            requested_post = blog_post
+     # Add the CommentForm to the route
     comment_form = CommentForm()
     # Only allow logged-in users to comment on posts
     if comment_form.validate_on_submit():
@@ -249,7 +252,28 @@ def show_post(post_id):
         )
         db.session.add(new_comment)
         db.session.commit()
-    return render_template("post.html", post=requested_post, current_user=current_user, form=comment_form)
+    return render_template("post.html", post=requested_post current_user=current_user, form=comment_form)
+
+
+#@app.route("/post/<int:post_id>", methods=["GET", "POST"])
+#def show_post(post_id):
+ #   requested_post = db.get_or_404(BlogPost, post_id)
+    # Add the CommentForm to the route
+  #  comment_form = CommentForm()
+    # Only allow logged-in users to comment on posts
+   # if comment_form.validate_on_submit():
+    #    if not current_user.is_authenticated:
+     #       flash("You need to login or register to comment.")
+      #      return redirect(url_for("login"))
+#
+ #       new_comment = Comment(
+  #          text=comment_form.comment_text.data,
+   #         comment_author=current_user,
+    #        parent_post=requested_post
+     #   )
+      #  db.session.add(new_comment)
+       # db.session.commit()
+    #return render_template("post.html", post=requested_post, current_user=current_user, form=comment_form)
 
 
 # Use a decorator so only an admin user can create new posts
